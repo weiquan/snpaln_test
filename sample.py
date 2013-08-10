@@ -31,7 +31,7 @@ def readfq(fp): # this is a generator function
 
 import sys
 import random
-N = 1 #2M
+N = 2*1024*1024 #2M
 usage = 'sample.py [in1.fastq] [in2.fastq]'
 if __name__ == '__main__':
     if len(sys.argv) < 3:
@@ -54,9 +54,10 @@ if __name__ == '__main__':
     fp_o = open(sys.argv[1]+'.sample', 'w')
     for i, (name, seq, qual) in enumerate(readfq(fp)):
         if i in sample:
-            print >>fp_o, name
+            print >>fp_o, "@"+name
             print >>fp_o, seq
             if qual != None:
+                print >>fp_o, '+'
                 print >>fp_o, qual
     fp_o.close()
     fp.close()
@@ -66,9 +67,10 @@ if __name__ == '__main__':
 
     for i, (name, seq, qual) in enumerate(readfq(fp)):
         if i in sample:
-            print >>fp_o, name
+            print >>fp_o, "@"+name
             print >>fp_o, seq
             if qual != None:
+                print >>fp_o, '+'
                 print >>fp_o, qual
     fp_o.close()
     fp.close()
